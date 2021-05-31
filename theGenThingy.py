@@ -51,4 +51,4 @@ for i in range(0, int(input('How many thingys do you need?'))):
 
 print(df)
 
-df.to_csv("moviesList.csv")
+df.to_csv("series.csv")

@@ -19,7 +19,10 @@ Algo rapido de antemano
 1. [Cases](##Cases-where-there-is-an-error)
 1. [Conclusions](##Conclusions)
 1. [References](##References)
-1. [Introduction](##Introduction)
+
+## Introduction
+
+
 
 ## UML class diagram
 
@@ -31,7 +34,11 @@ Algo rapido de antemano
 
 ## Execution example
 
+
+
 ## Why we took this approach
+
+
 
 ## Cases where there is an error
 

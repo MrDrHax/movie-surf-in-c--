@@ -11,14 +11,14 @@ Algo rapido de antemano
 
 ## Index:
 
-1. [Introduction](##Introduction)
-1. [UML class diagram](##UML-class-diagram)
-    1. [Explanation](###Explanation)
-1. [Execution](<##Execution-example>)
-1. [Why we took this approach](##Why-we-took-this-approach)
-1. [Cases](##Cases-where-there-is-an-error)
-1. [Conclusions](##Conclusions)
-1. [References](##References)
+1. [Introduction](#Introduction)
+1. [UML class diagram](#UML-class-diagram)
+    1. [Explanation](##Explanation)
+1. [Execution](<#Execution-example>)
+1. [Why we took this approach](#Why-we-took-this-approach)
+1. [Cases](#Cases-where-there-is-an-error)
+1. [Conclusions](#Conclusions)
+1. [References](#References)
 
 ## Introduction
 

@@ -2,7 +2,6 @@
 
 Alejandro Fernandez del Valle Herrera A01024998
 Andrea Yela González A01025250
-hola 
 
 ### Before we start:
 [Download the code here!](https://github.com/MrDrHax/movie-surf-in-c--/archive/refs/heads/main.zip)

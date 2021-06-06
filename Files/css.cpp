@@ -6,23 +6,17 @@ using namespace std;
 
 class video{
     protected:
-        string id;
-        string name;
-        string genre;
-        int length;
-        float rating;
-        string comment;
-
-};
-
-class movies : video{
-    private:
-        string id[30]; 
+        string id[30];
         string name[30];
         string genre[30];
         int length[30];
         float rating[30];
         string comment[30];
+
+};
+
+class movies : public video{
+    private:
         int quantity;
 
     public:
@@ -56,15 +50,9 @@ class movies : video{
         }
 };
 
-class series : video{
+class series : public video{
 private:
-        string id[29];
         string episode[29];
-        string name[29];
-        string genre[29];
-        int length[29];
-        float rating[29];
-        string comment[29];
         int quantity;
 
     public:

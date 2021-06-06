@@ -30,18 +30,20 @@ class video{
         }
 
         video(string id,
+        string episode, 
         string name,
         string genre,
         int length,
         float rating,
-        string comment, string episode){
+        string comment){
             video::id = id;
+            video::episode = episode;
             video::name = name;
             video::genre = genre;
             video::length = length;
             video::rating = rating;
             video::comment = comment;
-            video::episode = episode;
+            
 
         }
 
@@ -49,8 +51,7 @@ class video{
 
 class movies{
     private:
-        int quantity;
-        vector<video> videos;
+        vector<video> movies;
 
     public:
         void readinfo()
@@ -59,11 +60,8 @@ class movies{
             file.open("movies.csv");
             string line, word;
             string row[6];
-            int j = 0;
-            quantity = 0;
             while(getline(file, line))
             {
-                quantity ++;
                 stringstream ss(line);
                 int i = 0;
                 while(getline(ss, word, ',' ))
@@ -71,23 +69,15 @@ class movies{
                     row[i] = word;
                     i++;
                 }
-                videos.push_back(new video(row[0], row[1], row[2], row[0], row[0], row[0], ));
-                id [j] = row[0];
-                name[j] = row[1];
-                genre[j] = row[2];
-                length [j] = stoi(row[3]);
-                rating[j] = stoi(row[4]);
-                comment[j] = row[5];
-                j++;
+                movies.push_back(video(row[0], row[1], row[2], stoi(row[3]), stof(row[4]), row[5]));
             }
             file.close();
         }
 };
 
-class series : public video{
+class series{
 private:
-        string episode[29];
-        int quantity;
+        vector <video> series;
 
     public:
         void readinfo()
@@ -97,10 +87,8 @@ private:
             string line, word;
             string row[7];
             int j = 0;
-            quantity = 0;
             while(getline(file, line))
             {
-                quantity ++;
                 stringstream ss(line);
                 int i = 0;
                 while(getline(ss, word, ',' ))
@@ -108,14 +96,7 @@ private:
                     row[i] = word;
                     i++;
                 }
-                id [j] = row[0];
-                episode[j] = row[1];
-                name[j] = row[2];
-                genre[j] = row[3];
-                length [j] = stoi(row[4]);
-                rating[j] = stoi(row[5]);
-                comment[j] = row[6];
-                j++;
+                series.push_back(video(row[0], row[1], row[2], row[3], stoi(row[4]), stof(row[5]), row[6]));
             }
             file.close();
         }

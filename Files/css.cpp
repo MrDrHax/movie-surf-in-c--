@@ -3,24 +3,23 @@
 #include <sstream>
 #include <string>
 #include <vector>
-using namespace std;
 
 class video{
     public:
-        string id;
-        string name;
-        string genre;
+        std::string id;
+        std::string name;
+        std::string genre;
         int length;
         float rating;
-        string comment;
-        string episode;
+        std::string comment;
+        std::string episode;
 
-        video(string id,
-        string name,
-        string genre,
+        video(std::string id,
+        std::string name,
+        std::string genre,
         int length,
         float rating,
-        string comment){
+        std::string comment){
             video::id = id;
             video::name = name;
             video::genre = genre;
@@ -29,13 +28,13 @@ class video{
             video::comment = comment;
         }
 
-        video(string id,
-        string episode, 
-        string name,
-        string genre,
+        video(std::string id,
+        std::string episode, 
+        std::string name,
+        std::string genre,
         int length,
         float rating,
-        string comment){
+        std::string comment){
             video::id = id;
             video::episode = episode;
             video::name = name;
@@ -43,26 +42,24 @@ class video{
             video::length = length;
             video::rating = rating;
             video::comment = comment;
-            
-
         }
 
 };
 
 class movies{
     private:
-        vector<video> movies;
+        std::vector<video> movies;
 
     public:
         void readinfo()
         {
-            ifstream file;
+            std::ifstream file;
             file.open("movies.csv");
-            string line, word;
-            string row[6];
+            std::string line, word;
+            std::string row[6];
             while(getline(file, line))
             {
-                stringstream ss(line);
+                std::stringstream ss(line);
                 int i = 0;
                 while(getline(ss, word, ',' ))
                 {
@@ -77,19 +74,19 @@ class movies{
 
 class series{
 private:
-        vector <video> series;
+        std::vector <video> series;
 
     public:
         void readinfo()
         {
-            ifstream file;
+            std::ifstream file;
             file.open("series.csv");
-            string line, word;
-            string row[7];
+            std::string line, word;
+            std::string row[7];
             int j = 0;
             while(getline(file, line))
             {
-                stringstream ss(line);
+                std::stringstream ss(line);
                 int i = 0;
                 while(getline(ss, word, ',' ))
                 {

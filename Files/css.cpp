@@ -2,22 +2,55 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 using namespace std;
 
 class video{
-    protected:
-        string id[30];
-        string name[30];
-        string genre[30];
-        int length[30];
-        float rating[30];
-        string comment[30];
+    public:
+        string id;
+        string name;
+        string genre;
+        int length;
+        float rating;
+        string comment;
+        string episode;
+
+        video(string id,
+        string name,
+        string genre,
+        int length,
+        float rating,
+        string comment){
+            video::id = id;
+            video::name = name;
+            video::genre = genre;
+            video::length = length;
+            video::rating = rating;
+            video::comment = comment;
+        }
+
+        video(string id,
+        string name,
+        string genre,
+        int length,
+        float rating,
+        string comment, string episode){
+            video::id = id;
+            video::name = name;
+            video::genre = genre;
+            video::length = length;
+            video::rating = rating;
+            video::comment = comment;
+            video::episode = episode;
+
+        }
 
 };
 
-class movies : public video{
+class movies{
     private:
         int quantity;
+        vector<video> videos;
 
     public:
         void readinfo()
@@ -38,6 +71,7 @@ class movies : public video{
                     row[i] = word;
                     i++;
                 }
+                videos.push_back(new video(row[0], row[1], row[2], row[0], row[0], row[0], ));
                 id [j] = row[0];
                 name[j] = row[1];
                 genre[j] = row[2];

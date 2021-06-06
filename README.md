@@ -1,5 +1,7 @@
 # Movie & Series picker
 
+Created by:
+
 Alejandro Fernandez del Valle Herrera A01024998
 
 Andrea Yela González A01025250
@@ -11,7 +13,9 @@ Joshua Ruben Amaya Camilo A01025258
 
 [Or go to the GitHub Repo here!](https://github.com/MrDrHax/movie-surf-in-c--)
 
-Algo rapido de antemano
+This program is licensed under the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. 
+
+Check LICENSE for more details
 
 ## Index:
 
@@ -48,9 +52,16 @@ Algo rapido de antemano
 
 We found that if the CSV file is not correct, it will fail.
 
+Other errors include OS errors, and permission errors (i.e. not enough privileges to read file) that land far from our scope.
+
+Otherwise, it is a pretty resilient piece of code, correct error try and catch is handled, with care to explain what happened.
+
+Vigorous tests have been done, including random inputs.
+
 ## Conclusions
 
 
 
 ## References
 
+lol no references because we pros

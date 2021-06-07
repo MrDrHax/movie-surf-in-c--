@@ -145,6 +145,75 @@ namespace tools{
 
         return choice;
     }
+
+    void Search(){
+        int Data;
+        int moviesData;
+        int seriesData;
+
+        std::cout<<"What do you want to see?     |       Movies (0)      |       Series (1)       |\n";
+        std::cin>>Data;
+
+        if(Data == 0){
+            std::cout<<"Type of filter      |       Rating (0)      |       Genre (1)       |       Name (2)        |\n";
+            std::cin>>moviesData;
+
+            if(moviesData == 0){
+                std::vector<media::video> movies;
+                for(int i = 0; i<movies.size(); i++){
+                    if(movies(row[2]) == ){
+                        //HEEEEEELPPPPP, I have a problem with the string comparison on a vector... I tried
+                    }
+                }
+            }
+
+            else if(moviesData == 1){
+                std::vector<media::video> videos;
+                for(int i = 0; i<videos.size(); i++){
+                    if(videos == )
+                }
+            }
+
+            else if(moviesData == 2){
+                std::vector<media::video> videos;
+                for(int i = 0; i<videos.size(); i++){
+                    if(videos == )
+                }
+            }
+        }
+
+        if(Data == 1){
+            std::cout<<"Type of filter      |       Rating (0)      |     Genre (1)       |       Name (2)      |\n";
+            std::cin>>seriesData;
+
+            if(seriesData == 0){
+                std::vector<media::series> series;
+                for(int i = 0; i<series.size(); i++){
+                    if(series == ){
+                        //Same problem here :(
+                    }
+                }
+            }
+
+            else if(seriesData == 1){
+                std::vector<media::series> series;
+                for(int i = 0; i<series.size(); i++){
+                    if(series == ){
+                        
+                    }
+                }
+            }
+
+            else if(seriesData == 2){
+                std::vector<media::series> series;
+                for(int i = 0; i<series.size(); i++){
+                    if(series == ){
+                        
+                    }
+                }
+            }
+        }
+    }
 }
 
 namespace mainMannager{

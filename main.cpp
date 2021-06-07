@@ -72,7 +72,7 @@ namespace media{
     };
 
     class movies{
-        private:
+        public:
             std::vector<video> movies;
 
         public:
@@ -98,7 +98,7 @@ namespace media{
     };
 
     class series{
-    private:
+        public:
             std::vector <video> series;
 
         public:
@@ -144,6 +144,140 @@ namespace tools{
         } 
 
         return choice;
+    }
+
+    class SearchInfo{
+        virtual void Search(std::vector<media::video> * searchIn){
+            int Data;
+            int moviesData;
+            int seriesData;
+
+            std::cout<<"What do you want to see?     |       Movies (0)      |       Series (1)       |\n";
+            std::cin>>Data;
+
+            if(Data == 0){
+                std::cout<<"Type of filter      |       Rating (0)      |       Genre (1)       |       Name (2)        |       ID (3)\n";
+                std::cin>>moviesData;
+
+                if(moviesData == 0){
+                    float movieRating;
+
+                    std::cout<<"Introduce the rating value of the movie:\n";
+                    std::cin>>movieRating;
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].rating == movieRating){ 
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(moviesData == 1){
+                    std::string movieGenre;
+
+                    std::cout<<"Introduce the genre of the movie:\n";
+                    std::cin>>movieGenre;
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].genre == movieGenre){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(moviesData == 2){
+                    std::string movieName;
+
+                    std::cout<<"Introduce the name of the movie:\n";
+                    std::cin>>movieName;
+                    for(int i = 0; i< (*searchIn).size(); i++){ 
+                        if((*searchIn)[i].name == movieName){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(moviesData == 3){
+                    std::string movieID;
+
+                    std::cout<<"Introduce the ID of the movie:\n";
+                    std::cin>>movieID;
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].id == movieID){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else{
+                    std::cout<<"Error! Please, enter a valid number...\n";
+                }
+            }
+
+            else if(Data == 1){
+                std::cout<<"Type of filter      |       Rating (0)      |       Genre (1)       |       Name (2)        |       ID (3)\n";
+                std::cin>>seriesData;
+
+                if(seriesData == 0){
+                    float seriesRating;
+
+                    std::cout<<"Introduce the rating value of the serie:\n";
+                    std::cin>>seriesRating;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].rating == seriesRating){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 1){
+                    std::string seriesGenre;
+
+                    std::cout<<"Introduce the genre of the serie:\n";
+                    std::cin>>seriesGenre;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].genre == seriesGenre){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 2){
+                    std::string seriesName;
+
+                    std::cout<<"Introduce the name of the serie:\n";
+                    std::cin>>seriesName;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].name == seriesName){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 3){
+                    std::string seriesID;
+
+                    std::cout<<"Introduce the ID of the serie:\n";
+                    std::cin>>seriesID;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].id == seriesID){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else{
+                    std::cout<<"Error! Please, enter a valid number...\n";
+                }
+            }
+
+            else{
+                std::cout<<"Error! Please, enter a valid number...\n";
+            }
+        }
+    };
+
+    //Print the entire search display
+    void print(SearchInfo){
+
     }
 }
 
@@ -195,11 +329,35 @@ namespace mainMannager{
         }
 
         /// Edit a file regestry
-        /// @param line the line that will be replaced
+        /// @param line the video file that will be replaced
         /// @param rating the new rating
         /// @param comment the new comment
-        void edit(int line, int rating, std::string comment){
+        void edit(media::video line, int rating, std::string comment, std::string file){
+            std::string strReplace = "";
+            std::string strNew = "";
 
+            
+
+            std::ifstream filein(file); //File to read from
+            std::ofstream fileout(file); //Temporary file
+            if(!filein || !fileout)
+            {
+                std::cout << "Error opening files!" << std::endl;
+                return;
+            }
+
+            std::string strTemp;
+            //bool found = false;
+            while(filein >> strTemp)
+            {
+                if(strTemp == strReplace){
+                    strTemp = strNew;
+                    //found = true;
+                }
+                strTemp += "\n";
+                fileout << strTemp;
+                //if(found) break;
+            }
         }
 
         /// Prints the options that are available and chooses the selection.

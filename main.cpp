@@ -27,6 +27,7 @@ This file is the main part of the project.
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <stdio.h>
 
 namespace media{
     class video{
@@ -71,7 +72,7 @@ namespace media{
 
     };
 
-    class movies{
+    class movies : public tools::SearchInfo{
         public:
             std::vector<video> movies;
 
@@ -97,7 +98,7 @@ namespace media{
             }
     };
 
-    class series{
+    class series : public tools::SearchInfo{
         public:
             std::vector <video> series;
 
@@ -147,6 +148,7 @@ namespace tools{
     }
 
     class SearchInfo{
+        public:
         virtual void Search(std::vector<media::video> * searchIn){
             int Data;
             int moviesData;
@@ -293,6 +295,9 @@ namespace mainMannager{
             mainLoop();
         }
 
+        media::movies movieMannager;
+        media::series seriesMannager;
+
         ///The main code loop
         ///
         ///This keeps alive the code andruns the main loop
@@ -302,7 +307,8 @@ namespace mainMannager{
 
         /// Loads the files
         void loadFile(){
-
+            movieMannager.readinfo();
+            seriesMannager.readinfo();
         }
         
         /// Searches for video
@@ -332,32 +338,44 @@ namespace mainMannager{
         /// @param line the video file that will be replaced
         /// @param rating the new rating
         /// @param comment the new comment
+        /// @param file the file to edit
         void edit(media::video line, int rating, std::string comment, std::string file){
             std::string strReplace = "";
+            std::stringstream strReplaceStream;
+            std::stringstream strNewStream;
             std::string strNew = "";
 
-            
+            // create new and old strings as how they should appear on the file
+            strReplaceStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << line.rating << "," << line.comment << ",";  
+            strNewStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << rating << "," << comment << ",";
+
+            // pass them to normal strings
+            strReplace = strReplaceStream.str();
+            strNew = strNewStream.str();
 
             std::ifstream filein(file); //File to read from
-            std::ofstream fileout(file); //Temporary file
-            if(!filein || !fileout)
+            std::ofstream fileout(".save"); //Temporary file, this is to not overwite anything
+            if(!filein || !fileout) // test to see if done correctly
             {
                 std::cout << "Error opening files!" << std::endl;
                 return;
             }
 
+            // Checks all the things and replaces them in new file
             std::string strTemp;
-            //bool found = false;
             while(filein >> strTemp)
             {
                 if(strTemp == strReplace){
                     strTemp = strNew;
-                    //found = true;
                 }
                 strTemp += "\n";
                 fileout << strTemp;
-                //if(found) break;
             }
+
+            // deletes old file, and replaces it with new one
+            remove(const_cast<char*>(file.c_str()));
+
+            rename(".save",const_cast<char*>(file.c_str()));
         }
 
         /// Prints the options that are available and chooses the selection.
@@ -463,9 +481,20 @@ namespace mainMannager{
 
                     break;
                 }
-                case 6:
+                case 6:{
                     /* rate a video */
+                    std::vector<media::video> searchoutput = std::vector<media::video>();
+
+                    std::string searchTerm;
+
+                    std::cout << "What title do you want to change?"
+                    std::cin >> searchterm;
+
+                    // add search here
+
+                    //edit();
                     break;
+                }
                 case 7:
                     /* EXIT */
                     std::cout << "Exiting... ";

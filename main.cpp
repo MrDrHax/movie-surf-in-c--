@@ -30,6 +30,7 @@ This file is the main part of the project.
 #include <stdio.h>
 
 namespace media{
+    /// Parent class 
     class video{
         public:
             std::string id;
@@ -39,7 +40,8 @@ namespace media{
             float rating;
             std::string comment;
             std::string episode;
-
+        
+            /// Constructor of video for movie
             video(std::string id,
             std::string name,
             std::string genre,
@@ -52,8 +54,10 @@ namespace media{
                 video::length = length;
                 video::rating = rating;
                 video::comment = comment;
+                video::episode = "N/A";
             }
-
+            
+            ///Constructor of video for series
             video(std::string id,
             std::string episode, 
             std::string name,
@@ -72,11 +76,11 @@ namespace media{
 
     };
 
+    ///Class movie, derived public SearchInfo from tools
     class movies : public tools::SearchInfo{
         public:
             std::vector<video> movies;
-
-        public:
+            ///Convert csv file into vectors
             void readinfo()
             {
                 std::ifstream file;
@@ -97,12 +101,13 @@ namespace media{
                 file.close();
             }
     };
-
+    ///Class series, derived public SearchInfo from tools
     class series : public tools::SearchInfo{
         public:
             std::vector <video> series;
 
         public:
+            ///Convert csv file into vectors
             void readinfo()
             {
                 std::ifstream file;
@@ -149,11 +154,13 @@ namespace tools{
 
     class SearchInfo{
         public:
+        ///Method to search the info as the user request
         virtual void Search(std::vector<media::video> * searchIn){
             int Data;
             int moviesData;
             int seriesData;
 
+            ///User display
             std::cout<<"What do you want to see?     |       Movies (0)      |       Series (1)       |\n";
             std::cin>>Data;
 
@@ -276,8 +283,43 @@ namespace tools{
             }
         }
 
-        virtual void Search(std::string term, std::string field, std::vector<media::video> *output, std::vector<media::video> *input){
+
+        /// Function to search information on vectors (overload)
+        virtual void Search(std::string term, int field, std::vector<media::video> *output, std::vector<media::video> *input){
+            switch (field)
+            {
+            case 1:
+                ///Compare and return the name of the videos
+                for(int i = 0; i<(*input).size(); i++){
+                if((*input)[i].name == term){
+                    (*output).push_back((*input)[i]);
+                    }
+                }
+                
+                break;
             
+            case 2:
+                ///Compare and return the genre of the videos
+                for(int i = 0; i<(*input).size(); i++){
+                if((*input)[i].genre == term){
+                    (*output).push_back((*input)[i]);
+                    }
+                }
+                
+                break;
+            
+            case 3:    
+                ///Compare and return the rating value of the videos
+                for(int i = 0; i<(*input).size(); i++){
+                    if((*input)[i].rating == stof(term)){
+                        (*output).push_back((*input)[i]);
+                    }
+                }
+                break;
+
+            default:
+                break;
+            }
         }
     };
 }
@@ -322,15 +364,16 @@ namespace mainMannager{
             
         }
 
-        /// Prints the whole movie list
-        void print(){
-
-        }
-
         /// Print selection of videos
         /// @param toPrint POINTER, what videos should be printed
         void print(std::vector<media::video> *toPrint){
             
+            std::cout <<  "ID\t|EPISODE\t|NAME\t|GENRE\t|DURATION\t|RATING\t|COMMENT\n";
+            
+            for (int i = 0; i < (*toPrint).size(); i++)
+            {
+                std::cout << (*toPrint)[i].id << "\t" << (*toPrint)[i].episode << "\t" << (*toPrint)[i].name << "\t" << (*toPrint)[i].genre <<"\t" << (*toPrint)[i].length << "\t" << (*toPrint)[i].rating << "\t" <<(*toPrint)[i].comment << "\n";
+            }
         }
 
         /// Edit a file regestry
@@ -486,12 +529,28 @@ namespace mainMannager{
 
                     std::string searchTerm;
 
-                    std::cout << "What title do you want to change?"
-                    std::cin >> searchterm;
+                    std::cout << "What title do you want to change?\n>>>";
+                    std::cin >> searchTerm;
+
+                    std::vector<media::video> * searchThingys;
+
+                    if (tools::getIntInput("Edit (0) Movie/ (1) Series\n>>>")){
+                        searchThingys = &seriesMannager.series;
+                    }else{
+                        searchThingys = &movieMannager.movies;
+                    }
 
                     // add search here
+                    
+                    movieMannager.Search(searchTerm, 1, &searchoutput, searchThingys);
 
-                    //edit();
+                    int newRating = tools::getIntInput("What is your rating?\n>>>");
+                    std::string newComment = "";
+                    
+                    std::cout << "What comment do you want to leave?\n>>>";
+                    std::cin >> newComment;
+
+                    edit(searchoutput[0], newRating, newComment);
                     break;
                 }
                 case 7:

@@ -146,11 +146,11 @@ namespace tools{
         return choice;
     }
 
-class SearchInfo{
-        virtual void Search(){
+    class SearchInfo{
+        virtual void Search(std::vector<media::video> * searchIn){
             int Data;
             int moviesData;
-            int seriesData;
+            int seriesData; // estas variables que significan? Si son valores que requieres pasalos arriba (nota que yo hago todo el in out)
 
             std::cout<<"What do you want to see?     |       Movies (0)      |       Series (1)       |\n";
             std::cin>>Data;
@@ -161,12 +161,12 @@ class SearchInfo{
 
                 if(moviesData == 0){
                     float movieRating;
-                    media::movies::movies[0];
+                    media::movies::movies[0]; // esto no tiene sentido, no hace nada
 
                     std::cout<<"Introduce the rating value of the movie:\n";
                     std::cin>>movieRating;
-                    for(int i = 0; i<movies.size(); i++){
-                        if(media::movies::movies[i].rating == movieRating){
+                    for(int i = 0; i< (*searchIn).size(); i++){ // NOTA, searchIn es un pointer, por eso pongo (*searchIn) para obtener su variable
+                        if((*searchIn)[i].rating == movieRating){ // cambie esto a una variable llamada searchIn, lo que hace es que es algo que si existe, y que no es nadamas imaginario
                             
                         }
                     }

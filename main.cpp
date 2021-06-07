@@ -72,7 +72,7 @@ namespace media{
     };
 
     class movies{
-        private:
+        public:
             std::vector<video> movies;
 
         public:

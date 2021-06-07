@@ -29,7 +29,7 @@ Check LICENSE for more details
 1. [References](#References)
 
 ## Introduction
-
+Thanks to the growing popularity of streaming services, and the increasingly varied multimedia content, the amount of data and files can be lost within an information network, so it is necessary to create more profitable and efficient systems for the search and display of them.
 
 
 ## UML class diagram

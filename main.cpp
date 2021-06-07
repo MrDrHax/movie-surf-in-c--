@@ -324,11 +324,35 @@ namespace mainMannager{
         }
 
         /// Edit a file regestry
-        /// @param line the line that will be replaced
+        /// @param line the video file that will be replaced
         /// @param rating the new rating
         /// @param comment the new comment
-        void edit(int line, int rating, std::string comment){
+        void edit(media::video line, int rating, std::string comment, std::string file){
+            std::string strReplace = "";
+            std::string strNew = "";
 
+            
+
+            std::ifstream filein(file); //File to read from
+            std::ofstream fileout(file); //Temporary file
+            if(!filein || !fileout)
+            {
+                std::cout << "Error opening files!" << std::endl;
+                return;
+            }
+
+            std::string strTemp;
+            //bool found = false;
+            while(filein >> strTemp)
+            {
+                if(strTemp == strReplace){
+                    strTemp = strNew;
+                    //found = true;
+                }
+                strTemp += "\n";
+                fileout << strTemp;
+                //if(found) break;
+            }
         }
 
         /// Prints the options that are available and chooses the selection.

@@ -275,12 +275,11 @@ namespace tools{
                 std::cout<<"Error! Please, enter a valid number...\n";
             }
         }
+
+        virtual void Search(std::string term, std::string field, std::vector<media::video> *output, std::vector<media::video> *input){
+            
+        }
     };
-
-    //Print the entire search display
-    void print(SearchInfo){
-
-    }
 }
 
 namespace mainMannager{

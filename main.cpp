@@ -79,7 +79,7 @@ namespace media{
             void readinfo()
             {
                 std::ifstream file;
-                file.open("movies.csv");
+                file.open("Files/movies.csv");
                 std::string line, word;
                 std::string row[6];
                 while(std::getline(file, line))
@@ -105,7 +105,7 @@ namespace media{
             void readinfo()
             {
                 std::ifstream file;
-                file.open("series.csv");
+                file.open("Files/series.csv");
                 std::string line, word;
                 std::string row[7];
                 int j = 0;

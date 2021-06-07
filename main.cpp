@@ -274,6 +274,11 @@ namespace tools{
             }
         }
     };
+
+    //Print the entire search display
+    void print(SearchInfo){
+
+    }
 }
 
 namespace mainMannager{

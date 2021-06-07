@@ -454,7 +454,8 @@ namespace mainMannager{
                     break;
                 case 2:
                     /* Show all */
-                    print();
+                    print(&movieMannager.movies);
+                    print(&seriesMannager.series);
                     break;
                 case 3:
                 {
@@ -550,7 +551,7 @@ namespace mainMannager{
                     std::cout << "What comment do you want to leave?\n>>>";
                     std::cin >> newComment;
 
-                    edit(searchoutput[0], newRating, newComment);
+                    edit(searchoutput[0], newRating, newComment, "Files/movies.csv");
                     break;
                 }
                 case 7:

@@ -150,7 +150,7 @@ namespace tools{
         virtual void Search(std::vector<media::video> * searchIn){
             int Data;
             int moviesData;
-            int seriesData; // estas variables que significan? Si son valores que requieres pasalos arriba (nota que yo hago todo el in out)
+            int seriesData;
 
             std::cout<<"What do you want to see?     |       Movies (0)      |       Series (1)       |\n";
             std::cin>>Data;
@@ -161,19 +161,119 @@ namespace tools{
 
                 if(moviesData == 0){
                     float movieRating;
-                    media::movies::movies[0]; // esto no tiene sentido, no hace nada
 
                     std::cout<<"Introduce the rating value of the movie:\n";
                     std::cin>>movieRating;
-                    for(int i = 0; i< (*searchIn).size(); i++){ // NOTA, searchIn es un pointer, por eso pongo (*searchIn) para obtener su variable
-                        if((*searchIn)[i].rating == movieRating){ // cambie esto a una variable llamada searchIn, lo que hace es que es algo que si existe, y que no es nadamas imaginario
-                            
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].rating == movieRating){ 
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
                         }
                     }
                 }
+
+                else if(moviesData == 1){
+                    std::string movieGenre;
+
+                    std::cout<<"Introduce the genre of the movie:\n";
+                    std::cin>>movieGenre;
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].genre == movieGenre){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(moviesData == 2){
+                    std::string movieName;
+
+                    std::cout<<"Introduce the name of the movie:\n";
+                    std::cin>>movieName;
+                    for(int i = 0; i< (*searchIn).size(); i++){ 
+                        if((*searchIn)[i].name == movieName){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(moviesData == 3){
+                    std::string movieID;
+
+                    std::cout<<"Introduce the ID of the movie:\n";
+                    std::cin>>movieID;
+                    for(int i = 0; i< (*searchIn).size(); i++){
+                        if((*searchIn)[i].id == movieID){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else{
+                    std::cout<<"Error! Please, enter a valid number...\n";
+                }
+            }
+
+            else if(Data == 1){
+                std::cout<<"Type of filter      |       Rating (0)      |       Genre (1)       |       Name (2)        |       ID (3)\n";
+                std::cin>>seriesData;
+
+                if(seriesData == 0){
+                    float seriesRating;
+
+                    std::cout<<"Introduce the rating value of the serie:\n";
+                    std::cin>>seriesRating;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].rating == seriesRating){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 1){
+                    std::string seriesGenre;
+
+                    std::cout<<"Introduce the genre of the serie:\n";
+                    std::cin>>seriesGenre;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].genre == seriesGenre){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 2){
+                    std::string seriesName;
+
+                    std::cout<<"Introduce the name of the serie:\n";
+                    std::cin>>seriesName;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].name == seriesName){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else if(seriesData == 3){
+                    std::string seriesID;
+
+                    std::cout<<"Introduce the ID of the serie:\n";
+                    std::cin>>seriesID;
+                    for(int i = 0; i<(*searchIn).size(); i++){
+                        if((*searchIn)[i].id == seriesID){
+                            std::cout<<(*searchIn)[i].id<<"\t"<<(*searchIn)[i].name<<"\t\t"<<(*searchIn)[i].genre<<"\t\t\t"<<(*searchIn)[i].length<<"\t\t\t\t"<<(*searchIn)[i].rating<<"\t\t\t\t\t"<<(*searchIn)[i].comment<<"\n";
+                        }
+                    }
+                }
+
+                else{
+                    std::cout<<"Error! Please, enter a valid number...\n";
+                }
+            }
+
+            else{
+                std::cout<<"Error! Please, enter a valid number...\n";
             }
         }
-    }
+    };
 }
 
 namespace mainMannager{

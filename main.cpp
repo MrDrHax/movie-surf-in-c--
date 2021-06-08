@@ -76,82 +76,6 @@ namespace media{
 
     };
 
-    ///Class movie, derived public SearchInfo from tools
-    class movies : public tools::SearchInfo{
-        public:
-            std::vector<video> movies;
-            ///Convert csv file into vectors
-            void readinfo()
-            {
-                std::ifstream file;
-                file.open("Files/movies.csv");
-                std::string line, word;
-                std::string row[6];
-                while(std::getline(file, line))
-                {
-                    std::stringstream ss(line);
-                    int i = 0;
-                    while(std::getline(ss, word, ',' ))
-                    {
-                        row[i] = word;
-                        i++;
-                    }
-                    movies.push_back(video(row[0], row[1], row[2], stoi(row[3]), stof(row[4]), row[5]));
-                }
-                file.close();
-            }
-    };
-    ///Class series, derived public SearchInfo from tools
-    class series : public tools::SearchInfo{
-        public:
-            std::vector <video> series;
-
-        public:
-            ///Convert csv file into vectors
-            void readinfo()
-            {
-                std::ifstream file;
-                file.open("Files/series.csv");
-                std::string line, word;
-                std::string row[7];
-                int j = 0;
-                while(getline(file, line))
-                {
-                    std::stringstream ss(line);
-                    int i = 0;
-                    while(getline(ss, word, ',' ))
-                    {
-                        row[i] = word;
-                        i++;
-                    }
-                    series.push_back(video(row[0], row[1], row[2], row[3], stoi(row[4]), stof(row[5]), row[6]));
-                }
-                file.close();
-            }
-    };
-}
-
-namespace tools{
-
-    /// Gets the input of the user, with error correction
-    /// @param output string to display before waiting (Default ">>>")
-    /// @return gets the int the the user has inputted (0 if error)
-    int getIntInput(std::string output = ">>> "){
-        int choice = 0;
-
-        std::cout << output;
-
-        if (!(std::cin >> choice)){
-            // in case of input error:
-            std::cin.clear(); 
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "ERROR: Please enter a number!\n";
-            return 0; // no need to run anything else!
-        } 
-
-        return choice;
-    }
-
     class SearchInfo{
         public:
         ///Method to search the info as the user request
@@ -311,7 +235,7 @@ namespace tools{
             case 3:    
                 ///Compare and return the rating value of the videos
                 for(int i = 0; i<(*input).size(); i++){
-                    if((*input)[i].rating == stof(term)){
+                    if((*input)[i].rating == /* COMPILER ERRORS */ std::stoi(term)){
                         (*output).push_back((*input)[i]);
                     }
                 }
@@ -322,6 +246,79 @@ namespace tools{
             }
         }
     };
+
+    ///Class movie, derived public SearchInfo from media
+    class movies : public SearchInfo{
+        public:
+            std::vector<video> movies;
+            ///Convert csv file into vectors
+            void readinfo()
+            {
+                std::ifstream file;
+                file.open("Files/movies.csv");
+                std::string line, word;
+                std::string row[6];
+                while(std::getline(file, line))
+                {
+                    std::stringstream ss(line);
+                    int i = 0;
+                    while(std::getline(ss, word, ',' ))
+                    {
+                        row[i] = word;
+                        i++;
+                    }
+                    movies.push_back(video(row[0], row[1], row[2], std::stoi(row[3]), /* COMPILER ERRORS */ std::stoi(row[4]), row[5]));
+                }
+                file.close();
+            }
+    };
+    ///Class series, derived public SearchInfo from media
+    class series : public SearchInfo{
+        public:
+            std::vector <video> series;
+
+        public:
+            ///Convert csv file into vectors
+            void readinfo()
+            {
+                std::ifstream file;
+                file.open("Files/series.csv");
+                std::string line, word;
+                std::string row[7];
+                int j = 0;
+                while(getline(file, line))
+                {
+                    std::stringstream ss(line);
+                    int i = 0;
+                    while(getline(ss, word, ',' ))
+                    {
+                        row[i] = word;
+                        i++;
+                    }
+                    series.push_back(video(row[0], row[1], row[2], std::stoi(row[3]), std::stoi(row[4]), row[5]));
+                }
+                file.close();
+            }
+    };
+
+    /// Gets the input of the user, with error correction
+    /// @param output string to display before waiting (Default ">>>")
+    /// @return gets the int the the user has inputted (0 if error)
+    int getIntInput(std::string output = ">>> "){
+        int choice = 0;
+
+        std::cout << output;
+
+        if (!(std::cin >> choice)){
+            // in case of input error:
+            std::cin.clear(); 
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "ERROR: Please enter a number!\n";
+            return 0; // no need to run anything else!
+        } 
+
+        return choice;
+    }
 }
 
 namespace mainMannager{
@@ -444,7 +441,7 @@ namespace mainMannager{
                     std::cout << "\t" << i+1 << ")" << options[i] << "\n";
                 }
                 
-                int choice = tools::getIntInput();
+                int choice = media::getIntInput();
 
                 switch (choice)
                 {
@@ -465,7 +462,7 @@ namespace mainMannager{
                     std::string *ratingGenre = new std::string;
                     std::string *term = new std::string;
 
-                    int type = tools::getIntInput("What would you like to search for?\n\t1) Genre\n\t2) Rating\n>>>");
+                    int type = media::getIntInput("What would you like to search for?\n\t1) Genre\n\t2) Rating\n>>>");
                     if (type == 1){
                         *term = "Genre";
                         std::cout << "What Genre do you wish to search for?\n>>>";
@@ -535,7 +532,7 @@ namespace mainMannager{
 
                     std::vector<media::video> * searchThingys;
 
-                    if (tools::getIntInput("Edit (0) Movie/ (1) Series\n>>>")){
+                    if (media::getIntInput("Edit (0) Movie/ (1) Series\n>>>")){
                         searchThingys = &seriesMannager.series;
                     }else{
                         searchThingys = &movieMannager.movies;
@@ -545,7 +542,7 @@ namespace mainMannager{
                     
                     movieMannager.Search(searchTerm, 1, &searchoutput, searchThingys);
 
-                    int newRating = tools::getIntInput("What is your rating?\n>>>");
+                    int newRating = media::getIntInput("What is your rating?\n>>>");
                     std::string newComment = "";
                     
                     std::cout << "What comment do you want to leave?\n>>>";

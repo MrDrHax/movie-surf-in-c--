@@ -246,7 +246,7 @@ namespace media{
         }
     };
 
-    ///Class movie, derived public SearchInfo from media
+    ///Class movie, derived public from SearchInfo
     class movies : public SearchInfo{
         public:
             std::vector<video> movies;
@@ -271,7 +271,7 @@ namespace media{
                 file.close();
             }
     };
-    ///Class series, derived public SearchInfo from media
+    ///Class series, derived public SearchInfo
     class series : public SearchInfo{
         public:
             std::vector <video> series;

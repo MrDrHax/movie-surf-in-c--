@@ -57,7 +57,7 @@ namespace media{
                 video::episode = "N/A";
             }
             
-            ///Constructor of video for series
+            /// Constructor of video for series
             video(std::string id,
             std::string episode, 
             std::string name,
@@ -73,7 +73,6 @@ namespace media{
                 video::rating = rating;
                 video::comment = comment;
             }
-
     };
 
     class SearchInfo{

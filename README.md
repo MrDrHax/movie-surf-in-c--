@@ -34,7 +34,7 @@ Thanks to the growing popularity of streaming services, and the increasingly var
 
 ## UML class diagram
 
-![Image](LINK)
+![Image](UMLDiagram.jpg)
 
 ### Explanation
 

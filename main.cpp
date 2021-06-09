@@ -151,7 +151,7 @@ namespace media{
                 if(seriesData == 0){
                     float seriesRating;
 
-                    std::cout<<"Introduce the rating value of the serie:\n";
+                    std::cout<<"Introduce the rating value of the series:\n";
                     std::cin>>seriesRating;
                     for(int i = 0; i<(*searchIn).size(); i++){
                         if((*searchIn)[i].rating == seriesRating){
@@ -163,7 +163,7 @@ namespace media{
                 else if(seriesData == 1){
                     std::string seriesGenre;
 
-                    std::cout<<"Introduce the genre of the serie:\n";
+                    std::cout<<"Introduce the genre of the series:\n";
                     std::cin>>seriesGenre;
                     for(int i = 0; i<(*searchIn).size(); i++){
                         if((*searchIn)[i].genre == seriesGenre){
@@ -175,7 +175,7 @@ namespace media{
                 else if(seriesData == 2){
                     std::string seriesName;
 
-                    std::cout<<"Introduce the name of the serie:\n";
+                    std::cout<<"Introduce the name of the series:\n";
                     std::cin>>seriesName;
                     for(int i = 0; i<(*searchIn).size(); i++){
                         if((*searchIn)[i].name == seriesName){
@@ -187,7 +187,7 @@ namespace media{
                 else if(seriesData == 3){
                     std::string seriesID;
 
-                    std::cout<<"Introduce the ID of the serie:\n";
+                    std::cout<<"Introduce the ID of the series:\n";
                     std::cin>>seriesID;
                     for(int i = 0; i<(*searchIn).size(); i++){
                         if((*searchIn)[i].id == seriesID){
@@ -208,6 +208,7 @@ namespace media{
 
 
         /// Function to search information on vectors (overload)
+        /// @param field field to search, 1=name, 2=genre, 3=rating
         virtual void Search(std::string term, int field, std::vector<media::video> *output, std::vector<media::video> *input){
             switch (field)
             {
@@ -342,6 +343,14 @@ namespace mainMannager{
             while (printOptionsAndWaitAnswer());
         }
 
+        /// reload everything, like if from scratch
+        void reset(){
+            movieMannager = media::movies();
+            seriesMannager = media::series();
+
+            loadFile();
+        }
+
         /// Loads the files
         void loadFile(){
             movieMannager.readinfo();
@@ -351,13 +360,34 @@ namespace mainMannager{
         /// Searches for video
         /// @param term the term to search for
         /// @param field the field to look for (rating, name, etc.)
+        ///     1=name, 
+        ///     2=genre, 
+        ///     3=rating
         /// @param type the type of video to search for
         ///     0=all,
         ///     1=movie,
         ///     2=series
         /// @param output POINTER vector to where all the movies should be stored
-        void searchMovie(std::string term, std::string field, int type, std::vector<media::video> *output){
-            
+        void searchMovie(std::string term, int field, int type, std::vector<media::video> *output){
+            std::vector<media::video> temp;
+
+            if (type == 0 || type ==1)
+            {
+                for (int i = 0; i < movieMannager.movies.size(); i++)
+                {
+                    temp.push_back(movieMannager.movies[i]);
+                }
+            }
+
+            if (type == 0 || type ==2)
+            {
+                for (int i = 0; i < seriesMannager.series.size(); i++)
+                {
+                    temp.push_back(seriesMannager.series[i]);
+                }
+            }
+
+            movieMannager.Search(term, field, output, &temp);
         }
 
         /// Print selection of videos
@@ -384,24 +414,26 @@ namespace mainMannager{
             std::string strNew = "";
 
             // create new and old strings as how they should appear on the file
-            strReplaceStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << line.rating << "," << line.comment << ",";  
-            strNewStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << rating << "," << comment << ",";
+            strReplaceStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << line.rating << "," << line.comment;  
+            strNewStream << line.id << "," << line.name << "," << line.genre << "," << line.length << "," << rating << "," << comment;
 
             // pass them to normal strings
             strReplace = strReplaceStream.str();
             strNew = strNewStream.str();
 
             std::ifstream filein(file); //File to read from
-            std::ofstream fileout(".save"); //Temporary file, this is to not overwite anything
+            std::ofstream fileout(".save"); //Temporary file, this is to not overwrite anything
             if(!filein || !fileout) // test to see if done correctly
             {
                 std::cout << "Error opening files!" << std::endl;
                 return;
             }
 
+            /**/
+
             // Checks all the things and replaces them in new file
             std::string strTemp;
-            while(filein >> strTemp)
+            while(std::getline(filein, strTemp))
             {
                 if(strTemp == strReplace){
                     strTemp = strNew;
@@ -414,6 +446,8 @@ namespace mainMannager{
             remove(const_cast<char*>(file.c_str()));
 
             rename(".save",const_cast<char*>(file.c_str()));
+
+            std::cout << "Changes saved!";
         }
 
         /// Prints the options that are available and chooses the selection.
@@ -446,7 +480,7 @@ namespace mainMannager{
                 {
                 case 1:
                     /* Refresh file list. */
-                    loadFile();
+                    reset();
                     break;
                 case 2:
                     /* Show all */
@@ -459,20 +493,20 @@ namespace mainMannager{
                     std::vector<media::video> *searchOutput = new std::vector<media::video>;
 
                     std::string *ratingGenre = new std::string;
-                    std::string *term = new std::string;
+                    int term = 0;
 
                     int type = media::getIntInput("What would you like to search for?\n\t1) Genre\n\t2) Rating\n>>>");
                     if (type == 1){
-                        *term = "Genre";
+                        term = 2;
                         std::cout << "What Genre do you wish to search for?\n>>>";
                         std::cin >> *ratingGenre;
                     }else{
-                        *term = "Rating";
+                        term = 3;
                         std::cout << "What Rating do you want to search for?\n>>>";
                         std::cin >> *ratingGenre;
                     }
                     
-                    searchMovie(*ratingGenre, *term, 0, searchOutput);
+                    searchMovie(*ratingGenre, term, 0, searchOutput);
 
                     print(searchOutput);
 
@@ -492,7 +526,7 @@ namespace mainMannager{
                     std::cout << "What Rating do you want to search for in series?\n>>>";
                     std::cin >> *ratingGenre;
                     
-                    searchMovie(*ratingGenre, *term, 2, searchOutput);
+                    searchMovie(*ratingGenre, 3, 2, searchOutput);
 
                     print(searchOutput);
 
@@ -512,7 +546,7 @@ namespace mainMannager{
                     std::cout << "What Rating do you want to search for in movies?\n>>>";
                     std::cin >> *ratingGenre;
                     
-                    searchMovie(*ratingGenre, *term, 1, searchOutput);
+                    searchMovie(*ratingGenre, 3, 1, searchOutput);
 
                     print(searchOutput);
 
@@ -525,9 +559,14 @@ namespace mainMannager{
                     std::vector<media::video> searchoutput = std::vector<media::video>();
 
                     std::string searchTerm;
+                    char searchTermTemp [20] = {0};
 
                     std::cout << "What title do you want to change?\n>>>";
-                    std::cin >> searchTerm;
+
+                    std::cin.ignore();
+
+                    std::cin.getline(searchTermTemp, 20);
+                    searchTerm += searchTermTemp; 
 
                     std::vector<media::video> * searchThingys;
 
@@ -541,13 +580,25 @@ namespace mainMannager{
                     
                     movieMannager.Search(searchTerm, 1, &searchoutput, searchThingys);
 
+                    if (searchoutput.size() == 0)
+                    {
+                        std::cout << "Search turned null\n";
+                        return true;
+                    }
+                    
+
                     int newRating = media::getIntInput("What is your rating?\n>>>");
                     std::string newComment = "";
+
+                    std::cin.ignore();
                     
                     std::cout << "What comment do you want to leave?\n>>>";
-                    std::cin >> newComment;
+                    std::cin.getline(searchTermTemp, 20, '\n');
+                    newComment += searchTermTemp;
 
                     edit(searchoutput[0], newRating, newComment, "Files/movies.csv");
+
+                    reset();
                     break;
                 }
                 case 7:

@@ -24,12 +24,17 @@ Check LICENSE for more details
     1. [Explanation](##Explanation)
 1. [Execution](<#Execution-example>)
 1. [Why we took this approach](#Why-we-took-this-approach)
-1. [Cases](#Cases-where-there-is-an-error)
+1. [Cases where it might fail](#Cases-where-there-is-an-error)
 1. [Conclusions](#Conclusions)
 1. [References](#References)
 
 ## Introduction
-Thanks to the growing popularity of streaming services, and the increasingly varied multimedia content, the amount of data and files can be lost within an information network, so it is necessary to create more profitable and efficient systems for the search and display of them.
+
+During the last years, the technology has evolved to the point of being able to find any type of information with a single click; from personal data, photographs, movies, series, etc.
+
+For their part, streaming services are increasingly complex, being able to predict a person's tastes and hobbies trough search history, and thus being able to offer accurate options for each person in particular.
+
+In order to offer a quick and simple search, a search system has been designed according to the interests specified by the user, analyzing the database from the genre or even the rating.
 
 
 ## UML class diagram
@@ -38,15 +43,34 @@ Thanks to the growing popularity of streaming services, and the increasingly var
 
 ### Explanation
 
-> pretty
+It all starts on the main program, which creates a mainClass `centerCode`. This class is in charge of running the main loop, which calls a function that asks what to do. This redirects to all the appropriate functions, calling what is necessary in order to work properly.
+
+All the helper functions are located outside of the class, on namespace media, including classes for videos, series, and movies. 
+
+At the top, there is video, which is the core on what everything is designed on. Video is the main way different variables communicate, from printing searching, and saving. centerCode calls different functions with their appropriate parameters, and expects a result from them, mostly by handling arrays of videos, and giving parameters to make them work properly.
+
+Movies and Series are practically the same, although the key difference is the way they handle videos, by giving them different parameters.
 
 ## Execution example
 
-
+![Image](img/ss1.png)
+![Image](img/ss2.png)
+![Image](img/ss3.png)
+![Image](img/ss5.png)
+![Image](img/ss6.png)
+![Image](img/ss7.png)
 
 ## Why we took this approach
 
+The main reason why we took this approach, is because the way this is built means that anything can be edited, and it will still work correctly. We took many precautions to build everything modularly, that we, we can reuse code where needed, we can edit things without breaking other things, and most importantly, we could collaborate better.
 
+We used namespaces and classes to make a difference in different parts of the code, ones where more tool focused, while the others where more user focused. 
+
+To add on top of this, many classes where used as holders, or as ways to enhance other classes, such as video, that was used to store from one to many videos all at once. 
+
+The code is also built in a way that can really take in any amount of movies, searches for many things are possible (but not active since it was not required), and an extra option to help with corrupted data was added.
+
+Finally, in case this should be improved upon, lots of commenting was done, using Oxygen, to facilitate the reading by others.
 
 ## Cases where there is an error
 
@@ -60,8 +84,10 @@ Vigorous tests have been done, including random inputs.
 
 ## Conclusions
 
+While a small challenge, it was fun trying to figure out all the challenges, to make the UI as intuitive as possible, while still holding reach features that can satisfy and go over what was required in the assignment.
 
+Overall, it was a small little project that while might not be very useful on the real world, it does help with many proof of concept
 
 ## References
 
-lol no references because we pros
+All code was built and designed by us.
